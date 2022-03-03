@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <vector>
 
 #include "castleindex.h"
 
@@ -19,7 +20,7 @@ class castleindexer {
         char* get_compound_blob(char* path);
         char* get_list_blob(char* path);
 
-        char* get_value_token(char* path);
+        castleindex get_value_token(char* path);
 
         castleindex get_index_tree();
         castleindex get_index_tree(char* path);

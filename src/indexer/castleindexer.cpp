@@ -158,6 +158,36 @@ castleindex castleindexer::get_index_tree(char* path) {
     return child;
 }
 
+castleindex castleindexer::get_value_token(char *path) {
+    if(path == nullptr) {
+        return treeindex;
+    }
+
+    if(strcmp(path, "castle-root") == 0) {
+        return treeindex;
+    }
+
+    vector<string> split_path = castleindexer::split_path(path);
+
+    castleindex child{}, parent = treeindex;
+
+    for(const string& str : split_path) {
+        child = parent.get_child_with_name(str.c_str(), const_cast<const char **>(this->names));
+
+        if(child.type == INVALID_TOKEN) {
+            if(parent.type == ROOT_TOKEN || parent.type == COMPOUND_TOKEN || parent.type == LIST_TOKEN) {
+                return castleindex::invalid_index();
+            }
+            return parent;
+        }
+    }
+
+    if(child.type == ROOT_TOKEN || child.type == COMPOUND_TOKEN || child.type == LIST_TOKEN) {
+        return castleindex::invalid_index();
+    }
+    return child;
+}
+
 vector<string> castleindexer::split_path(char *path) {
     size_t start = 0, end;
     string token, strpath(path);
