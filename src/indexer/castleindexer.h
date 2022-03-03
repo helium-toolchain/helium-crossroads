@@ -32,5 +32,5 @@ class castleindexer {
         char** names;
 
         void index_names();
-        vector<string> split_path(char* path);
+        static vector<string> split_path(char* path);
 };
