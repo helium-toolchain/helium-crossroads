@@ -127,6 +127,25 @@ void castleindexer::index_names(){
     memcpy(this->names, &current_names[0], count); // 'current_names' will go out of scope, so let us copy those pointers
 }
 
+castleindex castleindexer::get_index_tree() {
+    return treeindex;
+}
+
+vector<string> castleindexer::split_path(char *path) {
+    size_t start = 0, end;
+    string token, strpath(path);
+    vector<string> result;
+
+    while((end = strpath.find('.', start)) != string::npos) {
+        token = strpath.substr(start, end - start);
+        start = end + 1;
+        result.push_back(token);
+    }
+
+    result.push_back(strpath.substr(start));
+    return result;
+}
+
 castleindexer::~castleindexer(){
     delete file;
     delete[] names;

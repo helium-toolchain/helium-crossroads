@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 
 #include "castleindex.h"
 
@@ -31,4 +32,5 @@ class castleindexer {
         char** names;
 
         void index_names();
+        vector<string> split_path(char* path);
 };
