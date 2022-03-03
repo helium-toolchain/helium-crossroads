@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <vector>
 #include <stack>
+#include <cstring>
 
 #include "castleindexer.h"
 
@@ -61,6 +62,7 @@ void castleindexer::index(){
                 working_index.type = token_type;
                 working_index.length = token_length;
                 working_index.nameindex = token_name_index;
+                working_index.child_count = child_count;
 
                 ((castleindex*)indexer_results.top().children)[current_count.top()] = working_index;
                 current_count.top()++;
@@ -77,6 +79,7 @@ void castleindexer::index(){
         working_index.type = token_type;
         working_index.length = 0;
         working_index.offset = ftell(this->file);
+        working_index.child_count = 0;
 
         fread(&token_name_index, 2, 1, this->file);
 
@@ -129,6 +132,30 @@ void castleindexer::index_names(){
 
 castleindex castleindexer::get_index_tree() {
     return treeindex;
+}
+
+castleindex castleindexer::get_index_tree(char* path) {
+    if(path == nullptr) {
+        return treeindex;
+    }
+
+    if(strcmp(path, "castle-root") == 0) {
+        return treeindex;
+    }
+
+    vector<string> split_path = castleindexer::split_path(path);
+
+    castleindex child{}, parent = treeindex;
+
+    for(const string& str : split_path) {
+        child = parent.get_child_with_name(str.c_str(), const_cast<const char **>(this->names));
+
+        if(child.type == INVALID_TOKEN) {
+            return parent;
+        }
+    }
+
+    return child;
 }
 
 vector<string> castleindexer::split_path(char *path) {
