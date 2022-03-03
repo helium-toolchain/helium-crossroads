@@ -188,6 +188,38 @@ castleindex castleindexer::get_value_token(char *path) {
     return child;
 }
 
+char* castleindexer::get_compound_blob(char *path) {
+    castleindex compound = this->get_index_tree(path);
+
+    char* blob = (char*)malloc(compound.length);
+
+    fseek(this->file, compound.offset, SEEK_SET);
+    fread(blob, 1, compound.length, this->file);
+
+    return blob;
+}
+
+char* castleindexer::get_list_blob(char *path) {
+    castleindex list = this->get_index_tree(path);
+
+    char* blob = (char*)malloc(list.length);
+
+    fseek(this->file, list.offset, SEEK_SET);
+    fread(blob, 1, list.length, this->file);
+
+    return blob;
+}
+
+int32_t castleindexer::get_token_offset(char *path) {
+    return this->get_index_tree(path).offset;
+}
+
+int32_t castleindexer::get_token_end(char *path) {
+    castleindex token = this-> get_index_tree(path);
+
+    return token.offset + token.length;
+}
+
 vector<string> castleindexer::split_path(char *path) {
     size_t start = 0, end;
     string token, strpath(path);
