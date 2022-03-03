@@ -23,7 +23,7 @@ class castleindexer {
         castleindex get_value_token(char* path);
 
         castleindex get_index_tree();
-        castleindex get_index_tree(char* path);
+        castleindex get_index_tree_from_path(char* path);
 
         virtual ~castleindexer();
 

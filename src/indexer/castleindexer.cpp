@@ -134,7 +134,7 @@ castleindex castleindexer::get_index_tree() {
     return treeindex;
 }
 
-castleindex castleindexer::get_index_tree(char* path) {
+castleindex castleindexer::get_index_tree_from_path(char* path) {
     if(path == nullptr) {
         return treeindex;
     }
