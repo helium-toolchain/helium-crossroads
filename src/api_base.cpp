@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 void delete_pointer(void *pointer) {
-    delete pointer;
+    operator delete(pointer);
 }
 
 void delete_pointer_array(void **pointer) {
