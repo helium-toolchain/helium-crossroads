@@ -16,4 +16,6 @@ add_executable(crossroads
         crossroads.cpp
         indexer/castleindex.cpp
         indexer_api.h
-        api_base.h indexer_api.cpp)
+        api_base.h
+        indexer_api.cpp
+        api_base.cpp)

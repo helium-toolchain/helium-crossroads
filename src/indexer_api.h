@@ -26,8 +26,6 @@ extern "C" {
 
     DLLEXPORT castleindex castle_get_index_tree_from_path(castleindexer *indexer, char *path);
 
-    DLLEXPORT void destroy(castleindexer *indexer);
-
 #ifdef __cplusplus
 }
 #endif
