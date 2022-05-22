@@ -189,7 +189,7 @@ castleindex castleindexer::get_value_token(char *path) {
 }
 
 char* castleindexer::get_compound_blob(char *path) {
-    castleindex compound = this->get_index_tree(path);
+    castleindex compound = this->get_index_tree_from_path(path);
 
     char* blob = (char*)malloc(compound.length);
 
@@ -200,7 +200,7 @@ char* castleindexer::get_compound_blob(char *path) {
 }
 
 char* castleindexer::get_list_blob(char *path) {
-    castleindex list = this->get_index_tree(path);
+    castleindex list = this->get_index_tree_from_path(path);
 
     char* blob = (char*)malloc(list.length);
 
@@ -211,11 +211,11 @@ char* castleindexer::get_list_blob(char *path) {
 }
 
 int32_t castleindexer::get_token_offset(char *path) {
-    return this->get_index_tree(path).offset;
+    return this->get_index_tree_from_path(path).offset;
 }
 
 int32_t castleindexer::get_token_end(char *path) {
-    castleindex token = this-> get_index_tree(path);
+    castleindex token = this->get_index_tree_from_path(path);
 
     return token.offset + token.length;
 }
